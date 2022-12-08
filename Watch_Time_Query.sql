@@ -8,7 +8,7 @@ case when Last_Actions = 'Clicked-Up-Next' and Video_Start_Type = 'Vdo_End' then
 num_seconds_played_no_ads/3600 as Watch_Hours
 from
 (SELECT a.*,
-lag(Video_Start_Type) over (partition by Adobe_Tracking_ID order by adobe_timestamp) as Last_Actions
+lag(Video_Start_Type) over (partition by Adobe_Tracking_ID, Adobe_Date order by adobe_timestamp) as Last_Actions
 FROM `nbcu-ds-sandbox-a-001.Shunchao_Sandbox.Auto_Binge_1126`  a
 where Adobe_Tracking_ID is not null and Video_Start_Type is not null
 order by Adobe_Tracking_ID, adobe_timestamp) b
